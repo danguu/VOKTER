@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
+COPY prisma.config.ts ./
 COPY prisma ./prisma
 RUN npx prisma generate
 
@@ -14,4 +15,4 @@ RUN npm run build
 
 EXPOSE 4000
 
-CMD ./node_modules/.bin/prisma db push --schema=prisma/schema.prisma && node dist/src/main.js
+CMD ./node_modules/.bin/prisma migrate deploy && node dist/src/main.js

@@ -15,4 +15,4 @@ RUN npm run build
 
 EXPOSE 4000
 
-CMD ./node_modules/.bin/prisma migrate deploy && node dist/src/main.js
+CMD ./node_modules/.bin/prisma migrate deploy && npx tsx prisma/seed.ts && node dist/src/main.js

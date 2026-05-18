@@ -1,0 +1,98 @@
+export const NAV_LINKS = [
+  { label: "Inicio", href: "/" },
+  { label: "Tienda", href: "/tienda" },
+  { label: "Footwear", href: "/categorias/footwear" },
+  { label: "Tech & Gadgets", href: "/categorias/tech-gadgets" },
+  { label: "Gear & Essentials", href: "/categorias/gear-essentials" },
+  { label: "Drops", href: "/drops" },
+]
+
+export const CATEGORIES = [
+  {
+    id: "audio",
+    name: "Audio",
+    slug: "audio",
+    description: "Audífonos, balacas, diademas y más",
+    image: "/images/audio.jpg",
+    subcategories: ["Manos Libres", "Balacas Bluetooth", "Diademas", "Cuelleras", "Parlantes"],
+  },
+  {
+    id: "cables-chargers",
+    name: "Cables y Cargadores",
+    slug: "cables-cargadores",
+    description: "Cables, cargadores de pared y carro",
+    image: "/images/cables.jpg",
+    subcategories: ["Cables", "Cargadores de Pared", "Cargadores de Carro"],
+  },
+  {
+    id: "power-banks",
+    name: "Power Banks",
+    slug: "power-banks",
+    description: "Baterías portátiles para tu dispositivo",
+    image: "/images/powerbanks.jpg",
+    subcategories: ["Power Banks"],
+  },
+  {
+    id: "accessories",
+    name: "Accesorios",
+    slug: "accesorios",
+    description: "Holders, soportes, fundas y más",
+    image: "/images/accessories.jpg",
+    subcategories: ["Holders", "Fundas", "Micrófonos", "Accesorios PC"],
+  },
+  {
+    id: "footwear",
+    name: "Footwear",
+    slug: "footwear",
+    description: "Sneakers premium de las mejores marcas",
+    image: "/images/footwear.jpg",
+    subcategories: ["Running", "Training", "Streetwear", "Outdoor"],
+  },
+  {
+    id: "apparel",
+    name: "Apparel",
+    slug: "apparel",
+    description: "Conjuntos deportivos y ropa urbana",
+    image: "/images/apparel.jpg",
+    subcategories: ["Hombre", "Mujer"],
+  },
+  {
+    id: "bedding",
+    name: "Hogar",
+    slug: "hogar",
+    description: "Sábanas Star Home 100% algodón",
+    image: "/images/bedding.jpg",
+    subcategories: ["Sábanas"],
+  },
+  {
+    id: "consoles",
+    name: "Consolas y Entretenimiento",
+    slug: "consolas-entretenimiento",
+    description: "Consolas retro, proyectores y TV Sticks",
+    image: "/images/consoles.jpg",
+    subcategories: ["Consolas", "Proyectores", "TV Sticks"],
+  },
+  {
+    id: "tech-gadgets",
+    name: "Tech & Gadgets",
+    slug: "tech-gadgets",
+    description: "Audífonos, cables, cargadores, power banks y más tecnología",
+    image: "",
+    subcategories: [],
+  },
+  {
+    id: "gear-essentials",
+    name: "Gear & Essentials",
+    slug: "gear-essentials",
+    description: "Ropa urbana, hogar y accesorios esenciales",
+    image: "",
+    subcategories: [],
+  },
+]
+
+export const SORT_OPTIONS = [
+  { label: "Más recientes", value: "newest" },
+  { label: "Menor precio", value: "price-asc" },
+  { label: "Mayor precio", value: "price-desc" },
+  { label: "Mejor rating", value: "rating" },
+]

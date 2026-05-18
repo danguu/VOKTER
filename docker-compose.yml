@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: vokter-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vokter
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vokter-backend
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/vokter?schema=public"
+      JWT_SECRET: "vokter-super-secret-key-change-in-production"
+      FRONTEND_URL: "http://localhost:3000"
+      PORT: "4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -c "npx prisma migrate deploy && node dist/src/main.js"
+
+  frontend:
+    build:
+      context: ./vokter-ecommerce
+      dockerfile: Dockerfile
+    container_name: vokter-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: "http://backend:4000/api/v1"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

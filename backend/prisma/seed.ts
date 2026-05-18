@@ -231,7 +231,6 @@ async function main() {
         salePrice: p.salePrice ?? null,
         stock: p.stock,
         featured: false,
-        reviewsCount: p.reviewsCount,
         categoryId: category.id,
       },
     })

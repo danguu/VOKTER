@@ -29,7 +29,7 @@ services:
       - "4000:4000"
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/vokter?schema=public"
-      JWT_SECRET: "vokter-super-secret-key-change-in-production"
+      JWT_SECRET: "${JWT_SECRET}"
       FRONTEND_URL: "http://localhost:3000"
       PORT: "4000"
     depends_on:

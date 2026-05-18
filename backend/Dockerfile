@@ -14,4 +14,4 @@ RUN npm run build
 
 EXPOSE 4000
 
-CMD npx prisma migrate deploy --schema=prisma/schema.prisma && node dist/src/main.js
+CMD ./node_modules/.bin/prisma migrate deploy --schema=prisma/schema.prisma && node dist/src/main.js

@@ -36,6 +36,10 @@ export default function HomePage() {
       {/* Hero Banner */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background to-primary/5">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(60,200,120,0.08),transparent_60%)]" />
+        <div
+          className="absolute inset-0 opacity-[0.04] bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/logo-bg.jpg')" }}
+        />
         <motion.div
           className="container relative z-10 text-center"
           initial="hidden"

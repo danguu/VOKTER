@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import {
@@ -78,8 +79,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="flex min-h-screen">
       <aside className="hidden md:flex w-64 flex-col border-r border-border/40 bg-card/30">
         <div className="p-6 border-b border-border/40">
-          <Link href="/admin/dashboard" className="text-lg font-bold tracking-tight">
-            VOKTER Admin
+          <Link href="/admin/dashboard" className="flex items-center gap-2">
+            <Image
+              src="/images/logo-main.png"
+              alt="VOKTER"
+              width={24}
+              height={24}
+              className="h-6 w-auto"
+            />
+            <span className="text-lg font-bold tracking-tight">Admin</span>
           </Link>
           <p className="text-xs text-muted-foreground mt-1">{session?.user?.email}</p>
         </div>
@@ -118,8 +126,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       <div className="flex-1 flex flex-col min-h-screen">
-        <header className="h-14 border-b border-border/40 flex items-center px-6 md:hidden">
-          <p className="font-bold text-sm">VOKTER Admin</p>
+        <header className="h-14 border-b border-border/40 flex items-center gap-2 px-6 md:hidden">
+          <Image
+            src="/images/logo-main.png"
+            alt="VOKTER"
+            width={18}
+            height={18}
+            className="h-4.5 w-auto"
+          />
+          <p className="font-bold text-sm">Admin</p>
         </header>
         <main className="flex-1 overflow-auto">{children}</main>
       </div>

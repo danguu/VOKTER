@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Camera, Music2, ExternalLink } from "lucide-react"
 import { siteConfig } from "@/config"
 
@@ -8,8 +9,15 @@ export function Footer() {
       <div className="container py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="text-xl font-bold tracking-tight">
-              VOKTER
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/images/logo-main.png"
+                alt="VOKTER"
+                width={28}
+                height={28}
+                className="h-7 w-auto"
+              />
+              <span className="text-xl font-bold tracking-tight">VOKTER</span>
             </Link>
             <p className="mt-3 text-sm text-muted-foreground max-w-xs">
               Ecosistema premium de rendimiento y tecnología urbana. Sneakers, gadgets y gear

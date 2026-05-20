@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState, useCallback } from "react"
 import { useSession, signOut } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, Search, Heart, ShoppingBag, User, LogOut, Settings, Package } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -28,6 +28,8 @@ import { NAV_LINKS } from "@/constants"
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const pathname = usePathname()
   const router = useRouter()
   const { data: session } = useSession()
   const { getItemCount } = useCartStore()
@@ -39,29 +41,39 @@ export function Navbar() {
     : "U"
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 group">
           <Image
             src="/images/logo-main.png"
             alt="VOKTER"
             width={32}
             height={32}
-            className="h-8 w-auto"
+            className="h-8 w-auto group-hover:opacity-80 transition-opacity"
           />
           <span className="text-xl font-bold tracking-tight">VOKTER</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden md:flex items-center gap-1">
+          {NAV_LINKS.map((link) => {
+            const isActive = pathname === link.href
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative px-3 py-2 text-sm font-medium transition-all duration-200 rounded-md ${
+                  isActive
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full shadow-[0_0_6px_rgba(78,207,138,0.5)]" />
+                )}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="flex items-center gap-1">
@@ -199,6 +211,14 @@ export function Navbar() {
                   placeholder="Buscar productos..."
                   className="pl-10 h-12 text-base"
                   autoFocus
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && searchQuery.trim()) {
+                      setIsSearchOpen(false)
+                      router.push(`/tienda?q=${encodeURIComponent(searchQuery.trim())}`)
+                    }
+                  }}
                 />
               </div>
             </div>

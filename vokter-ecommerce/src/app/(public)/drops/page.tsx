@@ -3,14 +3,14 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowLeft, Sparkles } from "lucide-react"
-import { products } from "@/data/products"
 import { ProductCard } from "@/components/product"
-
-const sortedProducts = [...products].sort(
-  (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-).slice(0, 30)
+import { useProductsStore } from "@/stores"
 
 export default function DropsPage() {
+  const products = useProductsStore((s) => s.products)
+  const sortedProducts = [...products].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  ).slice(0, 30)
   return (
     <div className="container py-8 md:py-12">
       <Link

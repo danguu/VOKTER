@@ -1,15 +1,15 @@
 "use client"
 
-import { use } from "react"
+import { use, useMemo } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowLeft } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { getProductsByCategoryGroup } from "@/data/products"
 import { formatPrice } from "@/lib/utils"
 import { CATEGORIES } from "@/constants"
 import { ProductCard } from "@/components/product"
+import { useProductsStore } from "@/stores"
 import { notFound } from "next/navigation"
 
 export default function CategoriaPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -17,7 +17,18 @@ export default function CategoriaPage({ params }: { params: Promise<{ slug: stri
   const category = CATEGORIES.find((c) => c.slug === slug)
   if (!category) notFound()
 
-  const categoryProducts = getProductsByCategoryGroup(slug)
+  const products = useProductsStore((s) => s.products)
+  const categoryGroups: Record<string, string[]> = {
+    "tech-gadgets": ["audio", "cables-cargadores", "power-banks", "accesorios", "consolas-entretenimiento"],
+    "gear-essentials": ["apparel", "hogar"],
+  }
+  const slugs = categoryGroups[slug]
+  const categoryProducts = useMemo(
+    () => slugs
+      ? products.filter((p) => slugs.includes(p.category.slug))
+      : products.filter((p) => p.category.slug === slug),
+    [products, slug]
+  )
 
   return (
     <div className="container py-8 md:py-12">

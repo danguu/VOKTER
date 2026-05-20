@@ -5,25 +5,25 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.09 0.01 284);
-  --foreground: oklch(0.97 0.003 264);
-  --card: oklch(0.13 0.015 280);
-  --card-foreground: oklch(0.97 0.003 264);
-  --popover: oklch(0.13 0.015 280);
-  --popover-foreground: oklch(0.97 0.003 264);
-  --primary: oklch(0.88 0.04 197);
-  --primary-foreground: oklch(0.09 0.01 284);
-  --secondary: oklch(0.24 0.07 252);
-  --secondary-foreground: oklch(0.97 0.003 264);
-  --muted: oklch(0.18 0.02 270);
-  --muted-foreground: oklch(0.6 0.02 270);
-  --accent: oklch(0.24 0.07 252);
-  --accent-foreground: oklch(0.97 0.003 264);
+  --background: oklch(0.06 0.012 280);
+  --foreground: oklch(0.98 0.004 264);
+  --card: oklch(0.1 0.015 275);
+  --card-foreground: oklch(0.98 0.004 264);
+  --popover: oklch(0.1 0.015 275);
+  --popover-foreground: oklch(0.98 0.004 264);
+  --primary: oklch(0.85 0.08 195);
+  --primary-foreground: oklch(0.06 0.012 280);
+  --secondary: oklch(0.25 0.09 252);
+  --secondary-foreground: oklch(0.98 0.004 264);
+  --muted: oklch(0.15 0.02 270);
+  --muted-foreground: oklch(0.55 0.025 270);
+  --accent: oklch(0.3 0.1 252);
+  --accent-foreground: oklch(0.98 0.004 264);
   --destructive: oklch(0.58 0.2 25);
-  --destructive-foreground: oklch(0.97 0.003 264);
-  --border: oklch(0.2 0.02 270);
-  --input: oklch(0.2 0.02 270);
-  --ring: oklch(0.88 0.04 197);
+  --destructive-foreground: oklch(0.98 0.004 264);
+  --border: oklch(0.18 0.025 270);
+  --input: oklch(0.18 0.025 270);
+  --ring: oklch(0.85 0.08 195);
   --radius: 0.625rem;
 }
 
@@ -89,4 +89,33 @@
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes text-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }

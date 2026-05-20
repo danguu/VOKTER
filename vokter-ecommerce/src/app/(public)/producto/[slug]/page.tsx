@@ -10,15 +10,13 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { getProductBySlug } from "@/data/products"
 import { formatPrice } from "@/lib/utils"
-import { useCartStore } from "@/stores/cart-store"
-import { useWishlistStore } from "@/stores/wishlist-store"
+import { useCartStore, useWishlistStore, useProductsStore } from "@/stores"
 import { notFound } from "next/navigation"
 
 export default function ProductoPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
-  const product = getProductBySlug(slug)
+  const product = useProductsStore((s) => s.getProductBySlug(slug))
   const { addItem } = useCartStore()
   const { toggleItem, isInWishlist } = useWishlistStore()
 
@@ -133,15 +131,17 @@ export default function ProductoPage({ params }: { params: Promise<{ slug: strin
               <TabsTrigger value="faq">FAQ</TabsTrigger>
             </TabsList>
             <TabsContent value="specs" className="mt-4">
-              {product.specifications && product.specifications.length > 0 && (
-                <div className="grid grid-cols-2 gap-3">
+              {product.specifications && product.specifications.length > 0 ? (
+                <div className="rounded-xl border border-border/40 divide-y divide-border/20">
                   {product.specifications.map((spec, i) => (
-                    <div key={i} className="flex justify-between py-2 border-b border-border/40 text-sm">
-                      <span className="text-muted-foreground">{spec.label}</span>
-                      <span className="font-medium">{spec.value}</span>
+                    <div key={i} className="flex items-center justify-between px-4 py-3 text-sm">
+                      <span className="text-muted-foreground font-medium">{spec.label}</span>
+                      <span className="text-foreground font-semibold text-right ml-4">{spec.value}</span>
                     </div>
                   ))}
                 </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">No hay especificaciones disponibles para este producto.</p>
               )}
             </TabsContent>
             <TabsContent value="reviews" className="mt-4">

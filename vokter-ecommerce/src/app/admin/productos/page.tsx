@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { Plus, Search, Edit, Trash2, X, Save } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Plus, Search, Edit, Trash2, X, Save, Loader2, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog"
+
 import { useProductsStore } from "@/stores"
 import { formatPrice } from "@/lib/utils"
 import type { Product, Category } from "@/types"
@@ -26,11 +27,15 @@ const emptyProduct = {
 }
 
 export default function AdminProductosPage() {
-  const { products, addProduct, updateProduct, deleteProduct } = useProductsStore()
+  const { products, loading, error, fetchProducts, addProduct, updateProduct, deleteProduct } = useProductsStore()
   const [search, setSearch] = useState("")
   const [editProduct, setEditProduct] = useState<Product | null>(null)
   const [isNew, setIsNew] = useState(false)
   const [form, setForm] = useState<Product>({ ...emptyProduct } as Product)
+
+  useEffect(() => {
+    fetchProducts()
+  }, [fetchProducts])
 
   const filtered = products.filter(
     (p) =>
@@ -78,6 +83,20 @@ export default function AdminProductosPage() {
         </Button>
       </div>
 
+      {error && (
+        <div className="flex items-center gap-2 p-4 rounded-md bg-destructive/10 text-destructive text-sm">
+          <AlertCircle className="h-4 w-4 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
+
+      {loading ? (
+        <Card>
+          <CardContent className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </CardContent>
+        </Card>
+      ) : (
       <Card>
         <CardHeader className="pb-3">
           <div className="flex items-center gap-4">
@@ -143,6 +162,7 @@ export default function AdminProductosPage() {
           </div>
         </CardContent>
       </Card>
+      )}
 
       <Dialog open={!!editProduct} onOpenChange={(open) => { if (!open) setEditProduct(null) }}>
         <DialogContent className="max-w-lg">

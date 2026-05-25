@@ -41,7 +41,7 @@ export function Navbar() {
     : "U"
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+    <header className="navbar-glow sticky top-0 z-50 w-full border-b border-border/20 bg-deep-black/90 backdrop-blur-xl supports-[backdrop-filter]:bg-deep-black/80">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
           <Image
@@ -51,7 +51,7 @@ export function Navbar() {
             height={32}
             className="h-8 w-auto group-hover:opacity-80 transition-opacity"
           />
-          <span className="text-xl font-bold tracking-tight">VOKTER</span>
+          <span className="text-xl font-bold tracking-[0.15em] uppercase gradient-text-cyan">VOKTER</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
@@ -61,15 +61,15 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-3 py-2 text-sm font-medium transition-all duration-200 rounded-md ${
+                className={`relative px-3 py-2 text-sm font-medium tracking-wider uppercase transition-all duration-200 ${
                   isActive
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                    ? "text-electric-blue"
+                    : "text-muted-foreground hover:text-electric-blue"
                 }`}
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full shadow-[0_0_6px_rgba(78,207,138,0.5)]" />
+                  <span className="absolute bottom-0 left-2 right-2 h-[1px] bg-gradient-to-r from-transparent via-electric-blue to-transparent shadow-[0_0_8px_rgba(0,174,239,0.6)]" />
                 )}
               </Link>
             )
@@ -154,39 +154,39 @@ export function Navbar() {
             <SheetTrigger className="md:hidden" aria-label="Menú" render={<Button variant="ghost" size="icon" />}>
               <Menu className="h-5 w-5" />
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
+            <SheetContent side="right" className="w-[300px] border-l border-electric-blue/20">
               <nav className="flex flex-col gap-4 mt-8">
                 {NAV_LINKS.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-lg font-medium transition-colors hover:text-primary"
+                    className="text-lg font-medium tracking-wider uppercase transition-all duration-200 hover:text-electric-blue hover:translate-x-1"
                   >
                     {link.label}
                   </Link>
                 ))}
                 {session?.user ? (
                   <>
-                    <hr className="border-border/40" />
-                    <Link href="/perfil" onClick={() => setIsOpen(false)} className="text-lg font-medium">
-                      Mi perfil
+                    <div className="hud-divider my-2" />
+                    <Link href="/perfil" onClick={() => setIsOpen(false)} className="text-lg font-medium tracking-wider uppercase hover:text-electric-blue hover:translate-x-1 transition-all duration-200">
+                      MI PERFIL
                     </Link>
                     <button
                       onClick={() => { setIsOpen(false); signOut() }}
-                      className="text-left text-lg font-medium text-destructive"
+                      className="text-left text-lg font-medium tracking-wider uppercase text-destructive hover:translate-x-1 transition-all duration-200"
                     >
-                      Cerrar sesión
+                      CERRAR SESIÓN
                     </button>
                   </>
                 ) : (
                   <>
-                    <hr className="border-border/40" />
-                    <Link href="/login" onClick={() => setIsOpen(false)} className="text-lg font-medium">
-                      Iniciar sesión
+                    <div className="hud-divider my-2" />
+                    <Link href="/login" onClick={() => setIsOpen(false)} className="text-lg font-medium tracking-wider uppercase hover:text-electric-blue hover:translate-x-1 transition-all duration-200">
+                      INICIAR SESIÓN
                     </Link>
-                    <Link href="/registro" onClick={() => setIsOpen(false)} className="text-lg font-medium">
-                      Registrarse
+                    <Link href="/registro" onClick={() => setIsOpen(false)} className="text-lg font-medium tracking-wider uppercase hover:text-electric-blue hover:translate-x-1 transition-all duration-200">
+                      REGISTRARSE
                     </Link>
                   </>
                 )}
@@ -206,10 +206,10 @@ export function Navbar() {
           >
             <div className="container py-4">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-electric-blue" />
                 <Input
-                  placeholder="Buscar productos..."
-                  className="pl-10 h-12 text-base"
+                  placeholder="BUSCAR PRODUCTOS..."
+                  className="pl-10 h-12 text-base tracking-wider uppercase placeholder:text-muted-foreground/30"
                   autoFocus
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
